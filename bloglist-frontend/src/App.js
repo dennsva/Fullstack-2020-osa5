@@ -113,6 +113,19 @@ const App = () => {
     }
   }
 
+  const deleteBlog = async (blogId) => {
+    try {
+      await blogService.remove(blogId)
+      setBlogs(sortBlogList(blogs.filter(blog => blog.id !== blogId)))
+    } catch (exception) {
+      console.log(exception);
+      setErrorMessage('failed to delete blog')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+  }
+
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
@@ -158,6 +171,8 @@ const App = () => {
                 key={blog.id}
                 blog={blog}
                 likeBlog={() => likeBlog(blog.id)}
+                showRemove={blog.user.id === user.id}
+                deleteBlog={() => deleteBlog(blog.id)}
               />
             )}
           </div>

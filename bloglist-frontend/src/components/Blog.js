@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 
-const Blog = ({ blog, likeBlog }) => {
+const Blog = ({
+  blog,
+  likeBlog,
+  showRemove = true,
+  deleteBlog
+}) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -9,9 +14,16 @@ const Blog = ({ blog, likeBlog }) => {
     marginBottom: 5
   }
 
+  const handleDeleteBlog = (event) => {
+    event.preventDefault()
+    if (!window.confirm(`Are you sure you want to remove the blog "${blog.title}" by ${blog.author}?`)) return
+    deleteBlog()
+  }
+
   const [long, setLong] = useState(false)
 
   const whenLong = { display: long ? '' : 'none' }
+  const whenShowRemove = { display: showRemove ? '' : 'none' }
 
   const toggleLong = () => {
     setLong(!long)
@@ -26,7 +38,8 @@ const Blog = ({ blog, likeBlog }) => {
         {blog.likes} likes
         <button onClick={likeBlog}>like</button>
         <br />
-        {blog.user.name}
+        {blog.user.name}<br/>
+        <button style={whenShowRemove} onClick={handleDeleteBlog} color="blue">remove</button>
       </div>
     </div>
   )
