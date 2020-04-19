@@ -17,7 +17,7 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
-      setBlogs( blogs )
+      setBlogs(sortBlogList(blogs))
     )  
   }, [])
 
@@ -29,6 +29,12 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
+
+  const sortBlogList = list => {
+    return list.sort((a, b) => {
+      return b.likes - a.likes || a.title.localeCompare(b.title)
+    })
+  }
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -64,7 +70,7 @@ const App = () => {
     try {
       blogFormRef.current.setVisible(false)
       const addedBlog = await blogService.create(blogObject)
-      setBlogs(blogs.concat(addedBlog))
+      setBlogs(sortBlogList(blogs.concat(addedBlog)))
 
       setInfoMessage(`added blog "${addedBlog.title}" by ${addedBlog.author}`)
       setTimeout(() => {
@@ -82,7 +88,7 @@ const App = () => {
   const updateBlog = async (blogId, blogObject) => {
     try {
       const newBlog = await blogService.update(blogId, blogObject)
-      setBlogs(blogs.map(blog => blog.id === blogId ? newBlog : blog))
+      setBlogs(sortBlogList(blogs.map(blog => blog.id === blogId ? newBlog : blog)))
     } catch (exception) {
       console.log(exception);
       setErrorMessage('failed to update blog')
