@@ -18,7 +18,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs(sortBlogList(blogs))
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const App = () => {
 
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
-      ) 
+      )
       blogService.setToken(user.token)
       setUser(user)
       setUsername('')
@@ -77,7 +77,7 @@ const App = () => {
         setInfoMessage(null)
       }, 5000)
     } catch (exception) {
-      console.log(exception);
+      console.log(exception)
       setErrorMessage('failed to create blog')
       setTimeout(() => {
         setErrorMessage(null)
@@ -90,7 +90,7 @@ const App = () => {
       const newBlog = await blogService.update(blogId, blogObject)
       setBlogs(sortBlogList(blogs.map(blog => blog.id === blogId ? newBlog : blog)))
     } catch (exception) {
-      console.log(exception);
+      console.log(exception)
       setErrorMessage('failed to update blog')
       setTimeout(() => {
         setErrorMessage(null)
@@ -105,7 +105,7 @@ const App = () => {
         likes: blog.likes + 1
       })
     } catch (exception) {
-      console.log(exception);
+      console.log(exception)
       setErrorMessage('failed to like blog')
       setTimeout(() => {
         setErrorMessage(null)
@@ -118,7 +118,7 @@ const App = () => {
       await blogService.remove(blogId)
       setBlogs(sortBlogList(blogs.filter(blog => blog.id !== blogId)))
     } catch (exception) {
-      console.log(exception);
+      console.log(exception)
       setErrorMessage('failed to delete blog')
       setTimeout(() => {
         setErrorMessage(null)
@@ -163,7 +163,7 @@ const App = () => {
             logged in as {user.name}
             <button type="submit">logout</button>
           </form>
-          
+
           <div>
             <h2>blogs</h2>
             {blogs.map(blog =>
@@ -176,7 +176,7 @@ const App = () => {
               />
             )}
           </div>
-          
+
           <Togglable buttonLabel="add blog" ref={blogFormRef}>
             <BlogForm createBlog={addBlog} />
           </Togglable>
