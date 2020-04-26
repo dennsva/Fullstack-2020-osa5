@@ -154,17 +154,6 @@ describe('Note ', function() {
           .contains('view')
           .click()
         
-        // cy.get('.blog')
-        //   .then(blogs => {
-        //     cy.wrap(blogs)
-        //       .find('#likes')
-        //       .then(likes => {
-        //         cy.wrap(likes)
-        //           .child()
-        //         console.log(likes);
-        //       })
-        //   })
-
         let likes = []
 
         cy.get('.blog')
