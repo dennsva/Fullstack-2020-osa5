@@ -33,12 +33,10 @@ const Blog = ({
     <div style={blogStyle}>
       {blog.title} {blog.author}
       <button onClick={toggleLong}>{long ? 'hide' : 'view'}</button>
-      <div style={whenLong}>
-        {blog.url}<br />
-        {blog.likes} likes
-        <button onClick={likeBlog}>like</button>
-        <br />
-        {blog.user.name}<br/>
+      <div style={whenLong} className="whenLong">
+        {blog.url} <br />
+        {blog.likes} likes <button onClick={likeBlog}>like</button> <br />
+        {blog.user ? blog.user.name : 'unknown user'}<br/>
         <button style={whenShowRemove} onClick={handleDeleteBlog} color="blue">remove</button>
       </div>
     </div>
