@@ -30,12 +30,12 @@ const Blog = ({
   }
 
   return (
-    <div style={blogStyle}>
+    <div className="blog" style={blogStyle}>
       {blog.title} {blog.author}
-      <button onClick={toggleLong}>{long ? 'hide' : 'view'}</button>
+      <button className="viewBlogButton" onClick={toggleLong}>{long ? 'hide' : 'view'}</button>
       <div style={whenLong} className="whenLong">
         {blog.url} <br />
-        {blog.likes} likes <button onClick={likeBlog}>like</button> <br />
+        <span id="likes">{blog.likes}</span> likes <button onClick={likeBlog}>like</button> <br />
         {blog.user ? blog.user.name : 'unknown user'}<br/>
         <button style={whenShowRemove} onClick={handleDeleteBlog} color="blue">remove</button>
       </div>
